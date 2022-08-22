@@ -1,0 +1,13 @@
+.select{
+	cursor: pointer;
+	background: none;
+	color: #fff;
+	border: none;
+	outline: none;
+	>option {
+		background-color: black;
+		border: none;
+		cursor: pointer;
+	}
+}
+
