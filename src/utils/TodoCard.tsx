@@ -10,15 +10,13 @@ interface TodoCardProps {
 	remove: (todo: ITodo) => void
 }
 
+
 const TodoCard: React.FC<TodoCardProps> = ({ todo, remove }) => {
 	const [checked, setChecked] = useState<boolean>(false);
-
-	function changeCheckbox() {
+	const changeCheckbox = () => {
 		setChecked(!checked);
 		todo.important = !todo.important;
-
 	}
-
 
 
 	return (

@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import './Layout.scss'
 import { ITodo } from './types/data';
 import TodoCreator from './utils/TodoCreator';
@@ -19,7 +19,7 @@ interface LayoutProps {
 const setActiveClass = ({ isActive }: any) => isActive ? 'active-link' : ''
 
 
-const Layout: React.FC<LayoutProps> = ({ addTodo, search,setSearch, todosLength, workTodosQty, importantTodosQty, homeTodosQty, travelsTodosQty }) => {
+const Layout: React.FC<LayoutProps> = ({ addTodo, search, setSearch, todosLength, workTodosQty, importantTodosQty, homeTodosQty, travelsTodosQty }) => {
 	const categories = ([
 		{ id: 1, title: 'All tasks', path: '/', qty: todosLength },
 		{ id: 2, title: 'Home', path: 'home', qty: homeTodosQty },
@@ -27,7 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ addTodo, search,setSearch, todosLength,
 		{ id: 4, title: 'Travels', path: 'travels', qty: travelsTodosQty },
 		{ id: 5, title: 'Important', path: 'important', qty: importantTodosQty }
 	])
-
+	const navigate = useNavigate()
 
 	return (
 		<div className='layout'>
@@ -38,11 +38,14 @@ const Layout: React.FC<LayoutProps> = ({ addTodo, search,setSearch, todosLength,
 
 			<div className='navBarContainer'>
 				<div className="search">
-					<input 
-					type="text" 
-					placeholder='Search' 
-					value={search} 
-					onChange={e => setSearch({...search, query:e.target.value})}
+					<input
+						type="text"
+						placeholder='Search'
+						value={search}
+						onChange={e => {
+							setSearch({ ...search, query: e.target.value })
+							navigate('/')
+						}}
 					/>
 				</div>
 				<nav className='navBar'>

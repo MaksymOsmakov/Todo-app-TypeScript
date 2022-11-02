@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Layout from './Layout';
@@ -12,24 +12,21 @@ import ImportantTodosPage from './pages/ImportantTodosPage';
 import { useFoundTodos } from './customHooks/useSerch';
 
 function App() {
-	const [todos, setTodos] = useState<ITodo[]>([
-	]);
+	const [todos, setTodos] = useState<ITodo[]>([]);
 	const [search, setSearch] = useState({ query: '' })
 
 	const qty = (query: string) => todos.filter(t => t.category === query).length
+	const importantQty = todos.filter(t => t.important === true).length//so, i do not know how to fix it =)
+
 	const addTodo = (newTodo: ITodo) => {
 		setTodos([...todos, newTodo])
 	}
-	const foundTodos = useFoundTodos(todos, search.query)
 	const removeTodo = (todo: ITodo) => {
 		setTodos(todos.filter(t => t.id !== todo.id))
 	}
+	const foundTodos = useFoundTodos(todos, search.query)
 
-	const [importantQty, setImportantQty] = useState<number>(0);
-	const i = todos.filter(t => t.important === true).length
-	useEffect(() => {
-		setImportantQty(i)
-	}, [todos, i]);
+
 
 
 	return (
